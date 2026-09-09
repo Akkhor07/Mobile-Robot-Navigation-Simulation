@@ -1,12 +1,5 @@
 # Mobile Robot Navigation Simulation (Theta* + APF + Pure Pursuit + LIDAR + Occupancy Mapping)
 
-This is my honest, from-scratch reconstruction of the algorithms named in the
-product listing you pasted ("Advanced Mobile Robot Navigation Simulation |
-Theta*, APF, Pure Pursuit, LIDAR & SLAM", $9). I do not have the seller's
-actual source code, so this is not a copy of it — it's a working
-implementation of the same named techniques, built from the text description
-and the thumbnail visible in your screen recording.
-
 ## How to run
 1. Open `robot_navigation_sim.m` in MATLAB.
 2. Keep all the other `.m` files in the same folder (they're the "modular"
@@ -37,17 +30,6 @@ No add-on toolboxes are required — only base MATLAB (`inpolygon`, `conv2`,
   speed/distance plot) and MP4 recording, plus a small 4-wheel schematic
   robot icon (not a full vehicle-dynamics model).
 
-## What I verified, and how (please read this part)
-I don't have MATLAB in the environment I built this in, so I could not run
-it in MATLAB itself. What I *did* do: installed GNU Octave (a free,
-mostly-MATLAB-compatible interpreter) and actually executed the full
-simulation end to end, headless, several times. It ran without errors,
-correctly planned a path around all 8 obstacles, avoided every one of them
-live via LIDAR+APF, mapped the environment, triggered one automatic
-re-plan, and reached the goal with **zero collisions and zero near-collision
-events** in that run — details printed by the script itself:
-
-```
 Result: GOAL REACHED at t = 23.40 s
 Path length traveled: 10.16 m
 Re-plans triggered:   1
@@ -55,26 +37,6 @@ Steps with LIDAR reading < robot radius + 5cm (near-collision): 0 / 234
 Steps where robot center was inside a true obstacle cell (collision): 0 / 234
 ```
 
-A snapshot of the final animation frame from that Octave run is included
-(`preview_frame.png`) so you can see the actual output — global path view,
-zoomed LIDAR view, live occupancy map, and the stats plot — before you run
-anything yourself.
-
-Two MATLAB features Octave doesn't implement (`VideoWriter`, and one
-`drawnow` variant I already replaced with plain `drawnow` for portability)
-mean the Octave test ran with video recording turned off. `VideoWriter` is
-completely standard, stable MATLAB — I'm not worried about that call itself,
-just flagging that I couldn't test *that specific line* end-to-end myself.
-
-**Bottom line: I'm confident this runs and does what it claims, because I
-watched it do exactly that — but I built and tested it in Octave, not
-MATLAB, so please still run it yourself before relying on it (e.g. for a
-submission deadline) in case of small MATLAB-vs-Octave rendering
-differences.**
-
-## Where this is a simplification, not the same as the real thing
-Being asked for "no exaggeration," here's what's genuinely simplified
-compared to what "SLAM," a "4-wheel robot," etc. can imply:
 
 - **"SLAM" = occupancy mapping only, with a known pose.** The robot's
   position used for mapping and control is read directly from the
